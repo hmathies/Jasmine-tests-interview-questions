@@ -6,11 +6,11 @@
 }
 
 body {
-  background: #3e496b;
+  background: #faebd7;
 }
 
 #wrap {
-  background: #ecd641;
+  background: #81d8d4;
   width: 400px;
   margin: 0 auto;
   overflow: auto;
@@ -25,7 +25,7 @@ h2 {
 
 h2,
 form {
-  background: #ea315b;
+  background: #ea9494;
   margin: auto;
   padding: 10px 0;
   text-align: center;
@@ -51,10 +51,11 @@ ul {
 
 li {
   list-style: none;
-  border-bottom: 3px solid #44b1d9;
+  border-bottom: 3px solid #607d8b;
   padding: 10px;
   font-size: 20px;
   font-family: "Cabin", sans-serif;
+  color: #fff;
 }
 
 a {

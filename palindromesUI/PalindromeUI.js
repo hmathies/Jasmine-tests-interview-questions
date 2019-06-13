@@ -30,7 +30,14 @@ DomManipulation.prototype.init = function() {
 
 DomManipulation.prototype.displayGuess = function(guess) {
   const li = document.createElement("li");
+  const badge = document.createElement("span");
+  badge.classList.add("badge", "badge-secondary", "badge-pill", "ml-4");
+  badge.innerHTML = guess.isPalindrome;
   li.innerText = guess.title;
+
+  li.appendChild(badge);
+  let input = document.querySelector("input").value = '';
+
   return li;
 };
 
@@ -43,16 +50,20 @@ DomManipulation.prototype.addPalindromeEvent = function(
 ) {
   const displayGuess = this.displayGuess;
   const id = new Date().getUTCMilliseconds();
+
   form.addEventListener("submit", function(e) {
     e.preventDefault();
-    const input = document.querySelector("input").value;
+    let input = document.querySelector("input").value;
     const isItAPalindrome = input => {
+      const userInputStripped1 = input.replace(/[^\w\s]|_/g, "").toLowerCase();
+      const userInput = userInputStripped1.replace(/\s+/g, "");
+      console.log("This is the input", userInput);
       let reversed = "";
 
-      for (let character of input) {
+      for (let character of userInput) {
         reversed = character + reversed;
       }
-      if (reversed == input) {
+      if (reversed == userInput) {
         return true;
       } else {
         return false;
@@ -77,32 +88,3 @@ dom.addPalindromeEvent(
   palindrome.addPalindrome.bind(palindrome),
   document.querySelector("ul")
 );
-
-// -----   below function uncommented doesn't produce any errors
-// DomManipulation.prototype.addPalindromeEvent = function(
-//   form,
-//   createPalindrome,
-//   unorderedList
-// ) {
-//   const displayPalindrome = this.displayPalindrome;
-//   const id = new Date().getUTCMilliseconds();
-//   form.addEventListener("submit", function(e) {
-//     e.preventDefault();
-//     const input = document.querySelector("input").value;
-//     const guess = { palindrome: false, id: id, title: input };
-//     createPalindrome(guess);
-//     unorderedList.appendChild(displayPalindrome(guess));
-//   });
-// };
-// function palindrome(str) {
-//   let reversed = "";
-
-//   for (let character of str) {
-//     reversed = character + reversed;
-//   }
-//   if (reversed == str) {
-//     return true;
-//   } else {
-//     return false;
-//   }
-// }
