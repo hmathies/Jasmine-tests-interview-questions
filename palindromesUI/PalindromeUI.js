@@ -19,7 +19,10 @@ DomManipulation.prototype.init = function() {
   const form = document.createElement("form");
   const input = document.createElement("input");
   const ul = document.createElement("ul");
+
   input.id = "AddGuessInput";
+  input.placeholder = "Type a guess..."
+
   form.id = "addGuessForm";
   form.appendChild(input);
   return {
@@ -30,13 +33,12 @@ DomManipulation.prototype.init = function() {
 
 DomManipulation.prototype.displayGuess = function(guess) {
   const li = document.createElement("li");
-  const badge = document.createElement("span");
-  badge.classList.add("badge", "badge-secondary", "badge-pill", "ml-4");
-  badge.innerHTML = guess.isPalindrome;
+  const span = document.createElement("span");
+  span.classList.add("badge", "badge-secondary", "badge-pill", "ml-4");
+  span.innerText = guess.isPalindrome;
   li.innerText = guess.title;
 
-  li.appendChild(badge);
-  let input = document.querySelector("input").value = '';
+  li.appendChild(span);
 
   return li;
 };
@@ -57,7 +59,7 @@ DomManipulation.prototype.addPalindromeEvent = function(
     const isItAPalindrome = input => {
       const userInputStripped1 = input.replace(/[^\w\s]|_/g, "").toLowerCase();
       const userInput = userInputStripped1.replace(/\s+/g, "");
-      console.log("This is the input", userInput);
+
       let reversed = "";
 
       for (let character of userInput) {
@@ -74,8 +76,9 @@ DomManipulation.prototype.addPalindromeEvent = function(
     const guess = { isPalindrome: palindromeChecker, id: id, title: input };
 
     checkIfPalindrome(guess);
-    console.log(guess.isPalindrome);
+
     ul.appendChild(displayGuess(guess));
+
   });
 };
 
