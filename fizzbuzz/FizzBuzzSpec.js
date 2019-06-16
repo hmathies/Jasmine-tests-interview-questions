@@ -1,36 +1,56 @@
-describe("fizzbuzz should be defined", () => {
+describe("Testing DOM manipulation", function() {
+  let Dom, guess, fizzbuzz;
+  beforeEach(function(){
+    fizzbuzz = new Fizzbuzz();
+    Dom = new DomManipulation();
+    guess = {
+      num: 15,
+      isNum: true
+    }
+  });
+
+  it("should initialize HTML", () => {
+    const form = document.createElement("form");
+    const input = document.createElement("input");
+    const div = document.createElement('div');
+
+    input.id = "numInput";
+    input.placeholder = "Type a number...";
+    form.id = "numForm";
+    form.appendChild(input);
+
+    expect(Dom.init().form).toEqual(form);
+    expect(Dom.init().div).toEqual(div);
+  });
+
+  it("should trigger form and display the result", () => {
+    const form = document.createElement("form");
+    form.innerHTML = `<input value=15 placeholder="Type a number..." /><button type="submit" />`;
+    document.body.appendChild(form);
+    const div = document.createElement("div");
+    Dom.addFizzbuzzEvent(form, fizzbuzz.addFizzbuzz.bind(fizzbuzz), div);
+    form.getElementsByTagName("button")[0].click();
+    document.body.removeChild(form);
+    expect(fizzbuzz.fizzbuzz[0].num).toEqual(15);
+  });
+});
+
+describe("Testing DOM manipulation", () => {
+  let fizzbuzz, test1, test2;
   beforeEach(() => {
-    spyOn(console, 'log');
+    fizzbuzz = new Fizzbuzz();
+    test1 = {
+      id: 1,
+      num: 5
+    };
+    test2 = {
+      id: 2,
+      num: 10
+    };
   });
-  afterEach(() => {
-    console.log.calls.reset();
+  it("should add the user num to the dom", () => {
+    fizzbuzz.addFizzbuzz(test1);
+    fizzbuzz.num(15);
+    expect(fizzbuzz.getFizzbuzz().find(fizzbuzz => fizzbuzz.num == 15).num).toBe(15);
   });
-  it("should define a function named fizzbuzz", () => {
-    expect(fizzbuzz).toBeDefined();
-  });
-
-  it("should print out 5 statements when calling fizzbuzz with `5`", () => {
-    fizzbuzz(5);
-    expect(console.log.calls.count()).toBe(5);
-  });
-
-  it("should print out correct values when called with 15", () => {
-    fizzbuzz(15);
-    expect(console.log[0][0]).and.returnValue(1);
-    expect(console.log[1][0]).and.returnValue(2);
-    expect(console.log[2][0]).and.returnValue('fizz');
-    expect(console.log[3][0]).and.returnValue(4);
-    expect(console.log[4][0]).and.returnValue('buzz');
-    expect(console.log[5][0]).and.returnValue('fizz');
-    expect(console.log[6][0]).and.returnValue(7);
-    expect(console.log[7][0]).and.returnValue(8);
-    expect(console.log[8][0]).and.returnValue('fizz');
-    expect(console.log[9][0]).and.returnValue('buzz');
-    expect(console.log[10][0]).and.returnValue(11);
-    expect(console.log[11][0]).and.returnValue('fizz');
-    expect(console.log[12][0]).and.returnValue(13);
-    expect(console.log[13][0]).and.returnValue(14);
-    expect(console.log[14][0]).and.returnValue('fizzbuzz');
-  })
-
 });

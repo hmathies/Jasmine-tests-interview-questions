@@ -1,4 +1,3 @@
-
 describe("Testing DOM manipulation", function() {
   let Dom, guess, palindrome;
   beforeEach(function() {
