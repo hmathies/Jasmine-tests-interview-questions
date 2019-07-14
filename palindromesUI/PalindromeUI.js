@@ -19,12 +19,20 @@ DomManipulation.prototype.init = function() {
   const form = document.createElement("form");
   const input = document.createElement("input");
   const ul = document.createElement("ul");
+  // btn code
+  const btnInput = document.createElement("input");
+  const btn = document.createElement("button");
+  btnInput.setAttribute("type", "button");
+  btn.innerHTML = "Check";
+  btn.classList.add("btn-secondary", "btn-block");
 
-  input.id = "AddGuessInput";
-  input.placeholder = "Type a guess..."
+  // end btn code
+  input.id = "addGuessInput";
+  input.placeholder = "Type a guess...";
 
   form.id = "addGuessForm";
   form.appendChild(input);
+  form.appendChild(btn);
   return {
     form,
     ul
@@ -43,8 +51,6 @@ DomManipulation.prototype.displayGuess = function(guess) {
   return li;
 };
 
-DomManipulation.prototype.createUniqueId = function() {};
-
 DomManipulation.prototype.addPalindromeEvent = function(
   form,
   checkIfPalindrome,
@@ -54,8 +60,13 @@ DomManipulation.prototype.addPalindromeEvent = function(
   const id = new Date().getUTCMilliseconds();
 
   form.addEventListener("submit", function(e) {
+    // debugger;
     e.preventDefault();
+
     let input = document.querySelector("input").value;
+    if (!input) {
+      return;
+    }
     const isItAPalindrome = input => {
       const userInputStripped1 = input.replace(/[^\w\s]|_/g, "").toLowerCase();
       const userInput = userInputStripped1.replace(/\s+/g, "");
@@ -65,7 +76,7 @@ DomManipulation.prototype.addPalindromeEvent = function(
       for (let character of userInput) {
         reversed = character + reversed;
       }
-      if (reversed == userInput) {
+      if (reversed === userInput) {
         return true;
       } else {
         return false;
@@ -77,8 +88,11 @@ DomManipulation.prototype.addPalindromeEvent = function(
 
     checkIfPalindrome(guess);
 
-    ul.appendChild(displayGuess(guess));
+    if (palindromeChecker || !palindromeChecker) {
+      document.getElementById("addGuessForm").reset();
+    }
 
+    ul.appendChild(displayGuess(guess));
   });
 };
 
